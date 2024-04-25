@@ -5,6 +5,9 @@ provider "aws" {
 resource "aws_instance" "project1" {
   ami           = var.amis["20.04"]
   instance_type = var.instance_types[0]
+  tags = {
+    Name = "web-server"
+  }
 }
 
 resource "aws_security_group" "docker-permission" {

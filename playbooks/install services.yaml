@@ -1,0 +1,64 @@
+---
+- name: Install Java, Docker, (?!Jenkins?!).
+  hosts: your_server  # Replace 'your_server' with the hostname or IP of your server
+  become: yes  
+
+  tasks:
+    - name: Update apt package cache (for Debian/Ubuntu).
+      apt:
+        update_cache: yes
+      when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
+
+    - name: Install Java 11
+      apt:
+        name: openjdk-11-jdk
+        state: present
+      become: yes
+
+    - name: Install Java 8
+      apt:
+        name: openjdk-8-jdk
+        state: present
+      become: yes
+
+    - name: Install Docker dependencies
+      apt:
+        name: 
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+      become: yes
+      when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
+
+    - name: Add Docker official GPG key
+      sahell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+      become: yes
+      when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
+
+    - name: Add Docker repository
+      shell: echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+      become: yes
+      when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+      become: yes
+      when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
+
+    - name: Start and enable Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+      become: yes
+      when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
+
+#    - name: Install Jenkins
+#      apt:
+#        name: jenkins
+#        state: present
+#      become: yes
+#      when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
