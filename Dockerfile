@@ -1,8 +1,5 @@
 # Use the official Nginx image from Docker Hub
-FROM nginx
-
-# Set the working directory to root
-WORKDIR /
+FROM nginx:latest
 
 # Install Git (if not already included in the Nginx image)
 RUN apt-get update && apt-get install git -y
