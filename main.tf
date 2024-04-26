@@ -8,11 +8,12 @@ resource "aws_instance" "project1" {
   tags = {
     Name = "web-server"
   }
+security_groups = [var.security_groups["docker_sg"]]
 }
 
-resource "aws_security_group" "docker-permission" {
-  name        = var.security_groups.docker_sg 
-}
+#resource "aws_security_group" "docker-permission" {
+#  name        = var.security_groups.docker_sg 
+#}
 
 
 output "instance-ip" {
