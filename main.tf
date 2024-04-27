@@ -8,6 +8,7 @@ resource "aws_instance" "project1" {
   count         = var.instance_count
   ami           = var.amis["20.04"]
   instance_type = var.instance_types[0]
+  associate_public_ip_address = true  # Assign a public IP to this instance
   key_name      = "projects"
   tags = {
     Name = "web-server-${count.index + 1}"
@@ -20,6 +21,11 @@ provisioner "local-exec" {
 
 }
 }
+
+output "instance_public_ip" {
+  value = [for instacne in aws_instance.project1 : instance.public_ip]
+}
+
 output "instance-ip" {
   value = [for instance in aws_instance.project1 : instance.public_ip]
 }
