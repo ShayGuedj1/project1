@@ -6,9 +6,9 @@
   #  ansible_python_interpreter: /usr/bin/python3
 
   tasks:
-    - name: Install Java 11
+    - name: install python3-docker
       apt:
-        name: openjdk-11-jdk
+        name: python3-docker
         state: present
       become: yes
 
