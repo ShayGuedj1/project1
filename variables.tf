@@ -4,6 +4,11 @@ variable "instance_types" {
   default     = ["t2.micro", "t2.small", "t2.medium"]
 }
 
+variable "instance_count" {
+  description = "Number of EC2 instances to create"
+  type        = number
+}
+
 variable "amis" {
   description = "List of amis ubuntu types to deploy"
   type        = map(string)

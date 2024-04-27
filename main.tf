@@ -2,10 +2,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
-variable "instance_count" {
-  description = "Number of EC2 instances to create"
-  type        = number
-}
+
 
 resource "aws_instance" "project1" {
   count         = var.instance_count
