@@ -17,7 +17,7 @@ security_groups = [var.security_groups["docker_sg"]]
 
 
 provisioner "local-exec" {
-  command= "cat /home/cloud_user/.ssh/id_rsa.pub"
+  command= "cat /home/cloud_user/.ssh/id_rsa.pub >> /home/ubuntu/.ssh/authorized_keys"
 }
 }
 output "instance-ip" {
