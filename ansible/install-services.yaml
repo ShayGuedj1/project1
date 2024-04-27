@@ -31,8 +31,10 @@
       become: yes
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
 
-    - name: Add Docker official GPG key
-      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg |  gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    - name: Import Docker GPG key
+      apt_key:
+        url: "https://download.docker.com/linux/ubuntu/gpg"
+        state: present
       become: yes
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
 
