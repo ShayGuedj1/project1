@@ -17,7 +17,7 @@ security_groups = [var.security_groups["docker_sg"]]
 
 
 provisioner "local-exec" {
-  command= "chmod 600 ~/.ssh/authorized_keys"
+  command= "cat /home/cloud_user/.ssh/id_rsa.pub"
 }
 }
 output "instance-ip" {
