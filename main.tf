@@ -22,9 +22,7 @@ provisioner "local-exec" {
 }
 }
 
-output "instance_public_ip" {
-  value = [for instacne in aws_instance.project1 : instance.public_ip]
-}
+
 
 output "instance-ip" {
   value = [for instance in aws_instance.project1 : instance.public_ip]
