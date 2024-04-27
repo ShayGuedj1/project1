@@ -1,5 +1,5 @@
 ---
-- name: Install Java, Docker, (?!Jenkins?!).
+- name: Install Java and Docker
   hosts: all
   become: yes  
 
@@ -32,12 +32,12 @@
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
 
     - name: Add Docker official GPG key
-      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg |  gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
       become: yes
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
 
     - name: Add Docker repository
-      shell: echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+      shell: echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" |  tee /etc/apt/sources.list.d/docker.list > /dev/null
       become: yes
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
 
@@ -55,10 +55,3 @@
         enabled: yes
       become: yes
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
-
-#    - name: Install Jenkins
-#      apt:
-#        name: jenkins
-#        state: present
-#      become: yes
-#      when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
