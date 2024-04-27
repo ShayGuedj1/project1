@@ -20,6 +20,12 @@ provisioner "local-exec" {
   command= "bash ./auth.sh"
 
 }
+
+provisioner "local-exec" {
+    command = <<EOF
+      ssh -i /path/to/private-key.pem ec2-user@${[for instance in aws_instance.project1 : instance.public_ip]} 'echo Hello from remote instance!'
+    EOF
+  }
 }
 
 
