@@ -15,6 +15,13 @@ resource "aws_instance" "project1" {
   }
 security_groups = [var.security_groups["docker_sg"]]
 
+connection {
+    type        = "ssh"
+    user        = "ubuntu"  # Update with appropriate username
+    private_key = file("~/.ssh/id_rsa")  # Path to your private key
+    host        = self.public_ip  # Use the public IP of the instance
+  }
+
 provisioner "file" {
     source      = "~/.ssh/id_rsa.pub"  # Path to your local public key
     destination = "/tmp/my-public-key.pub"  # Temporary location on the instance
