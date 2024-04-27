@@ -13,13 +13,13 @@ resource "aws_instance" "project1" {
     Name = "web-server-${count.index + 1}"
   }
 security_groups = [var.security_groups["docker_sg"]]
+
+
+provisioner "local-exec" {
+  command= "bash ./auth.sh"
+
 }
-
-#resource "aws_security_group" "docker-permission" {
-#  name        = var.security_groups.docker_sg 
-#}
-
-
+}
 output "instance-ip" {
   value = [for instance in aws_instance.project1 : instance.public_ip]
 }
