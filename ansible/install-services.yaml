@@ -1,6 +1,6 @@
 ---
 - name: Install Java, Docker, (?!Jenkins?!).
-  hosts: your_server  # Replace 'your_server' with the hostname or IP of your server
+  hosts: all
   become: yes  
 
   tasks:
@@ -32,7 +32,7 @@
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
 
     - name: Add Docker official GPG key
-      sahell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
       become: yes
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
 
