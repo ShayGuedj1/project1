@@ -1,0 +1,20 @@
+---
+- name: Install website using docker image
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Pull Docker image
+      docker_image:
+        name: sharagon1/web-project
+        source: pull
+
+    - name: Run Docker container
+      docker_container:
+        name: app
+        image: sharagon1/web-project
+        state: started
+        detach: yes
+        restart_policy: always
+        ports:
+          - "80:80"
