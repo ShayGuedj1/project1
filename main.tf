@@ -16,7 +16,7 @@ resource "aws_instance" "project1" {
 security_groups = [var.security_groups["docker_sg"]]
 }
 resource "null_resource" "execute_command" {
-  for_each = aws_instance.example_instance
+  for_each = aws_instance.project1
 provisioner "local-exec" {
     command = <<EOF
       ssh -i /home/cloud_user/test/projects.pem ec2-user@${each.value.public.ip} 'echo Hello from instance ${each.key}!'
