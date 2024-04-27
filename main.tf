@@ -15,10 +15,20 @@ resource "aws_instance" "project1" {
   }
 security_groups = [var.security_groups["docker_sg"]]
 
+provisioner "file" {
+    source      = "~/.ssh/id_rsa.pub"  # Path to your local public key
+    destination = "/tmp/my-public-key.pub"  # Temporary location on the instance
+  }
 
-provisioner "local-exec" {
-  command= "chmod 600 && cat /home/cloud_user/.ssh/id_rsa.pub >> /home/ubuntu/.ssh/authorized_keys"
-}
+provisioner "remote-exec" {
+    inline = [
+      "sudo mkdir -p /home/ubuntu/.ssh",  # Create .ssh directory if it doesn't exist
+      "sudo cp /tmp/my-public-key.pub /home/ubuntu/.ssh/authorized_keys",  # Copy public key to authorized_keys
+      "sudo chown -R ubuntu:ubuntu /home/ubuntu/.ssh",  # Change ownership to ubuntu user
+      "sudo chmod 600 /home/ubuntu/.ssh/authorized_keys"  # Set correct permissions on authorized_keys
+    ]
+  }
+
 }
 output "instance-ip" {
   value = [for instance in aws_instance.project1 : instance.public_ip]
