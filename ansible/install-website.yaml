@@ -12,15 +12,15 @@
         state: present
       become: yes
 
-    - name: Pull Docker image
-      docker_image:
-        name: sharagon1/web-project:1.0
-        source: pull
+    #- name: Pull Docker image
+    #  docker_image:
+    #    name: sharagon1/web-project:1.0
+    #    source: pull
 
     - name: Run Docker container
       docker_container:
         name: app
-        image: sharagon1/web-project
+        image: sharagon1/web-project:1.0
         state: started
         detach: yes
         restart_policy: always
