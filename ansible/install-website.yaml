@@ -6,6 +6,11 @@
   #  ansible_python_interpreter: /usr/bin/python3
 
   tasks:
+
+    - name: Giving Dokcer user permissions
+      shell: sudo usermod -aG docker ${USER} && newgrp docker 
+      become: yes
+
     - name: install python3-docker
       apt:
         name: python3-docker
