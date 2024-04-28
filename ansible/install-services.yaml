@@ -43,16 +43,16 @@
       become: yes
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
 
-    - name: Create directory for keyrings.
-      shell: install -m 0755 -d /etc/apt/keyrings
-      become: yes
-      when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
+    #- name: Create directory for keyrings.
+    #  shell: install -m 0755 -d /etc/apt/keyrings
+    #  become: yes
+    #  when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
 
-    - name: Add Docker repository
-      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-             sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-      become: yes
-      when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
+    #- name: Add Docker repository
+    #  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+    #         sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    #  become: yes
+    #  when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
     
     - name: Grant read permissions to docker.asc
       become: yes
@@ -62,12 +62,12 @@
         state: touch   # Ensure the file exists (create if not)
 
      
-    - name: Add Docker repository
-      become: yes  # Ensure privilege escalation
-      apt_repository:
-        repo: "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" 
-        state: present
-      when: ansible_distribution == 'Ubuntu' 
+    #- name: Add Docker repository
+    #  become: yes  # Ensure privilege escalation
+    #  apt_repository:
+    #    repo: "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release #-cs) stable" 
+    #    state: present
+    #  when: ansible_os_family == 'Debian'  # Only run on Debian-based systems 
     #- name: Add Docker repository
     #  shell: echo \
     #          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
