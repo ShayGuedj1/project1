@@ -25,7 +25,7 @@
     - name: Install Docker dependencies
       apt:
         name: 
-          - apt-transport-https
+          #- apt-transport-https
           - ca-certificates
           - curl
           - software-properties-common
@@ -39,10 +39,9 @@
         state: directory
         mode: '0755'
 
-    - name: Import Docker GPG key
-      apt_key:
-        url: "https://download.docker.com/linux/ubuntu/gpg"
-        state: present
+    - name: Add Docker repository
+      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+             sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
       become: yes
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
     
