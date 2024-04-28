@@ -41,7 +41,7 @@
 
     - name: Add Docker repository
       shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-             sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+             sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && sudo rm /etc/apt/sources.list.d/docker*
       become: yes
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
     
