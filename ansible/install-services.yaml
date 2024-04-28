@@ -36,7 +36,7 @@
     - name: Install Docker dependencies
       apt:
         name: 
-          #- apt-transport-https
+          - apt-transport-https
           - ca-certificates
           - curl
           - software-properties-common
@@ -48,26 +48,26 @@
     #  become: yes
     #  when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
 
-    #- name: Add Docker repository
-    #  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-    #         sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-    #  become: yes
-    #  when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
+    - name: Add Docker repository
+      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+             sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+      when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
     
-    - name: Grant read permissions to docker.asc
-      become: yes
-      file:
-        path: /etc/apt/keyrings/docker.asc
-        mode: '0644'  # Set the file mode to 0644 (readable by all)
-        state: touch   # Ensure the file exists (create if not)
+    #- name: Grant read permissions to docker.asc
+    #  become: yes
+    #  file:
+    #    path: /etc/apt/keyrings/docker.asc
+    #   mode: '0644'  # Set the file mode to 0644 (readable by all)
+    #   state: touch   # Ensure the file exists (create if not)
 
      
-    #- name: Add Docker repository
-    #  become: yes  # Ensure privilege escalation
-    #  apt_repository:
-    #    repo: "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release #-cs) stable" 
-    #    state: present
-    #  when: ansible_os_family == 'Debian'  # Only run on Debian-based systems 
+    - name: Add Docker repository
+      become: yes  # Ensure privilege escalation
+      apt_repository:
+        repo: "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" 
+        state: present
+      when: ansible_os_family == 'Debian'  # Only run on Debian-based systems 
+
     #- name: Add Docker repository
     #  shell: echo \
     #          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
