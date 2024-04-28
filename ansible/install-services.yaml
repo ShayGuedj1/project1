@@ -54,10 +54,8 @@
 
 
     - name: Add Docker repository
-      shell: echo \
-             "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-              $(. /etc/os-release && echo "bookworm") stable" | \
-               sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+      shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+             xenial \ stable"
       become: yes
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
 
