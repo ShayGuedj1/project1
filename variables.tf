@@ -23,7 +23,7 @@ variable "security_groups" {
   type = map(string)
   default = {
     docker_sg  = "docker -sg"
-    jenkins_sg = "sg-123456"
+    jenkins_sg = "sg-1234567"
     ansible_sg = "sg-654321"
   }
 }

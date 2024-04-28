@@ -9,5 +9,5 @@ RUN rm -fr /usr/share/nginx/html/*
 # Clone the website repository into the Nginx HTML directory
 RUN git clone https://github.com/ShayGuedj1/website-project1.git /usr/share/nginx/html
 
-# Expose port 80 (default for Nginx)
+# Expose port 80 (default for Nginx).
 EXPOSE 80

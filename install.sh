@@ -12,4 +12,4 @@ sleep 3
 
 echo 'Starting website configuration, please wait: '
 ansible-playbook -i aws_ec2.yaml ansible/install-website.yaml
-sleep 2
+sleep 3

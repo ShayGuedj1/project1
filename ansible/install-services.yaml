@@ -9,18 +9,19 @@
         update_cache: yes
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
 
-    #- name: Install Java 11
-    #  apt:
-    #    name: openjdk-11-jdk
-    #   state: present
-    #  become: yes
+    - name: Install Java 11
+      apt:
+        name: openjdk-11-jdk
+        state: present
+      become: yes
+      when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
 
-    #- name: Install Java 8
-    #  apt:
-    #    name: openjdk-8-jdk
-    #    state: present
-    #  become: yes
-    #  when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
+    - name: Install Java 8
+      apt:
+        name: openjdk-8-jdk
+        state: present
+      become: yes
+      when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
     
     - name: Uninstall all conflicting packages.
       shell: for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do apt-get remove $pkg; done
@@ -57,14 +58,6 @@
       become: yes
       shell: sudo chmod a+r /etc/apt/keyrings/docker.asc
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
-
-     
-    #- name: Add Docker repository
-    #  become: yes  # Ensure privilege escalation
-    #  apt_repository:
-    #    repo: "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release #-cs) stable" 
-    #    state: present
-    #  when: ansible_os_family == 'Debian'  # Only run on Debian-based systems 
 
     - name: Add Docker repository
       shell: echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu focal stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
