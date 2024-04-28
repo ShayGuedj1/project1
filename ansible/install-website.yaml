@@ -7,9 +7,9 @@
 
   tasks:
 
-    - name: Giving Dokcer user permissions
-      shell: sudo usermod -aG docker ${USER} && newgrp docker 
-      become: yes
+    #- name: Giving Docker user permissions
+    #  shell: sudo usermod -aG docker ${USER} && newgrp docker 
+    #  become: yes
 
     - name: install python3-docker
       apt:
