@@ -47,6 +47,7 @@
       apt:
         update_cache: yes
       when: ansible_os_family == 'Debian'  # Only run on Debian-based systems
+      become: yes
 
     - name: Install Docker
       apt:
