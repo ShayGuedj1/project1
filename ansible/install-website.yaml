@@ -8,7 +8,7 @@
   tasks:
 
     - name: Giving Docker user permissions
-      shell: sudo usermod -aG sudo docker 
+      shell: sudo adduser docker && sudo usermod -aG sudo docker 
       become: yes
     
     #- name: wait please..
