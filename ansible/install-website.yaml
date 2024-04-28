@@ -4,11 +4,6 @@
   become: yes
   
   tasks:
-
-    - name: Giving Docker user permissions
-      shell: sudo usermod -aG sudo docker 
-      become: yes
-    
     - name: install python3-docker
       apt:
         name: python3-docker
