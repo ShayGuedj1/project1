@@ -20,7 +20,7 @@ pipeline {
         stage('Ansible Configure') {
             steps {
                 // Run Ansible playbook to configure the instance
-                sh 'ansible-playbook -i inventory ansible/install services.yaml'
+                sh 'ansible-playbook -i inventory aws_ec2.yaml'
             }
         }
     }
