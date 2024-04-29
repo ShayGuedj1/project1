@@ -13,14 +13,14 @@ pipeline {
             steps {
                 // Run Terraform to provision AWS instance
                 sh 'terraform init'
-                sh 'terraform apply -auto-approve'
             }
         }
         
-        stage('Ansible Configure') {
+        stage('Install the website') {
             steps {
                 // Run Ansible playbook to configure the instance
-                sh 'ansible-playbook -i inventory aws_ec2.yaml'
+                sh 'chmod 777 ./install.sh'
+                sh './install.sh'
             }
         }
     }

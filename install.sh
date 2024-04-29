@@ -2,7 +2,7 @@
 
 echo 'Starting Terraform: '
 sleep 3
-terraform apply 
+terraform apply --auto-approve
 sleep 3
 
 echo 'Starting service installation: '
