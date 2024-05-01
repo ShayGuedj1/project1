@@ -6,10 +6,10 @@ terraform apply
 sleep 3
 
 echo 'Starting service installation: '
-sleep 2
-ansible-playbook -i aws_ec2.yaml ansible/install-services.yaml
+echo 'sleep 2'
+echo 'ansible-playbook -i aws_ec2.yaml ansible/install-services.yaml'
 sleep 3
 
 echo 'Starting website configuration, please wait: '
-ansible-playbook -i aws_ec2.yaml ansible/install-website.yaml
-sleep 3
+echo 'ansible-playbook -i aws_ec2.yaml ansible/install-website.yaml'
+echo 'sleep 3'
